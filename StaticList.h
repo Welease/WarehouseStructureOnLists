@@ -27,14 +27,24 @@ public:
 
     int size() { return _countOfElements; }
 
+    int findElement(T toFind) {
+        int i = 0;
+        while (i < _countOfElements) {
+            if (list[i] == toFind)
+                return (i);
+            i++;
+        }
+        return (-1);
+    }
+
     void pushBack(T data) {
-        if (isFull(list)) {
+        if (isFull()) {
             std::cout << RED << "List is full" << DEFAULT << std::endl;
             return;
         }
         else {
-            list->list[list->size] = data;
-            list->size++;
+            list[_countOfElements] = data;
+            _countOfElements++;
         }
     }
 
@@ -47,8 +57,8 @@ public:
             list[_countOfElements++] = data;
         else {
             for (int i = _countOfElements; i > 0; i--)
-                list->list[i] = list->list[i - 1];
-            list->list[0] = data;
+                list[i] = list[i - 1];
+            list[0] = data;
             _countOfElements++;
         }
     }
@@ -58,7 +68,7 @@ public:
             std::cout << RED << "List is full" << DEFAULT << std::endl;
             return;
         }
-        int i = findElement(list, beforeWhich);
+        int i = findElement(beforeWhich);
         if (i == -1) {
             std::cout << RED << "Element not found :(" << DEFAULT << std::endl;
             return;
@@ -75,7 +85,7 @@ public:
             std::cout << RED << "List is full" << DEFAULT << std::endl;
             return;
         }
-        int i = findElement(list, afterWhich);
+        int i = findElement(afterWhich);
         if (i++ == -1) {
             std::cout << RED << "Element not found :(" << DEFAULT << std::endl;
             return;
@@ -154,23 +164,13 @@ public:
             return;
         }
         int i = findElement(afterWhich);
-        if (i == -1) {
+        if (i == -1 || i + 1 >= _countOfElements) {
             std::cout << RED << "Element not found :(" << DEFAULT << std::endl;
             return;
         }
         for (; i < _countOfElements; i++)
             list[i] = list[i + 1];
         _countOfElements--;
-    }
-
-    int findElement(T toFind) {
-        int i = 0;
-        while (i < _countOfElements) {
-            if (list[i] == toFind)
-                return (i);
-            i++;
-        }
-        return (-1);
     }
 };
 
