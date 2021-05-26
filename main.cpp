@@ -3,7 +3,7 @@
 
 int main() {
     std::string input;
-    std::string tmp;
+    std::string tmp, temp;
     std::cout << BLUE << "Input name of Warehouse: " << DEFAULT; std::cin >> input;
     Warehouse warehouse(input);
     while (1) {
@@ -19,6 +19,7 @@ int main() {
                              "9 - Delete input section\n" <<
                              "10 - Get count of sections in warehouse\n" <<
                              "11 - Find input section\n\n" <<
+
                              "Work with specific section:\n"
                              "12 - Add cell back to input section\n" <<
                              "13 - Add cell front to input section\n" <<
@@ -75,6 +76,57 @@ int main() {
         else if (input == "11") {
             std::cout << "Input number of section: "; std::cin >> tmp;
             warehouse.findSection(std::stoi(tmp)).printCells();
+        }
+        else if (input == "12") {
+            std::cout << "Input number of section: "; std::cin >> tmp;
+            std::cout << "Input number of cell: "; std::cin >> input;
+            warehouse.addCellToSectionBack(std::stoi(tmp), std::stoi(input));
+        }
+        else if (input == "13") {
+            std::cout << "Input number of section: "; std::cin >> tmp;
+            std::cout << "Input number of cell: "; std::cin >> input;
+            warehouse.addCellToSectionFront(std::stoi(tmp), std::stoi(input));
+        }
+        else if (input == "14") {
+            std::cout << "Input number of section: "; std::cin >> tmp;
+            std::cout << "Input number of new cell: "; std::cin >> input;
+            std::cout << "Input number of cell after which: "; std::cin >> temp;
+            warehouse.addCellToSectionAfter(std::stoi(tmp), std::stoi(temp), std::stoi(input));
+        }
+        else if (input == "15") {
+            std::cout << "Input number of section: "; std::cin >> tmp;
+            std::cout << "Input number of new cell: "; std::cin >> input;
+            std::cout << "Input number of cell before which: "; std::cin >> temp;
+            warehouse.addCellToSectionBefore(std::stoi(tmp), std::stoi(temp), std::stoi(input));
+        }
+        else if (input == "16") {
+            std::cout << "Input number of section: "; std::cin >> tmp;
+            std::cout << "Input number of cell: "; std::cin >> input;
+            warehouse.popFromSection(std::stoi(tmp), std::stoi(input));
+        }
+        else if (input == "17") {
+            std::cout << "Input number of section: "; std::cin >> tmp;
+            std::cout << "Input number of cell: "; std::cin >> input;
+            warehouse.popFromSectionBack(std::stoi(tmp), std::stoi(input));
+        }
+        else if (input == "18") {
+            std::cout << "Input number of section: "; std::cin >> tmp;
+            std::cout << "Input number of cell: "; std::cin >> input;
+            warehouse.popFromSectionFront(std::stoi(tmp), std::stoi(input));
+        }
+        else if (input == "19") {
+            std::cout << "Input number of section: "; std::cin >> tmp;
+            std::cout << "Input number of cell before: "; std::cin >> input;
+            warehouse.popFromSectionFront(std::stoi(tmp), std::stoi(input));
+        }
+        else if (input == "20") {
+            std::cout << "Input number of section: "; std::cin >> tmp;
+            std::cout << "Input number of cell after: "; std::cin >> input;
+            warehouse.popFromSectionFront(std::stoi(tmp), std::stoi(input));
+        }
+        else if (input == "21") {
+            std::cout << "Input number of section: "; std::cin >> tmp;
+            warehouse.printSectionsData(std::stoi(tmp));
         }
         else if (input == "0") {
             std::cout << GREEN << "See you soon!" << DEFAULT << std::endl;
