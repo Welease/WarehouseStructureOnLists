@@ -1,82 +1,41 @@
 #include <iostream>
-#include "StaticList.h"
-
+#include "Warehouse.h"
 
 int main() {
-    StaticList<int> list;
     std::string input;
     std::string tmp;
+    std::cout << BLUE << "Input name of Warehouse: " << DEFAULT; std::cin >> input;
+    Warehouse warehouse(input);
     while (1) {
         std::cout << BLUE << "Choose option:\n" <<
-                             "1 - push element back\n" <<
-                             "2 - push element front\n" <<
-                             "3 - push element before...\n" <<
-                             "4 - push element after...\n" <<
-                             "5 - pop element back\n" <<
-                             "6 - pop element front\n" <<
-                             "7 - pop element\n" <<
-                             "8 - pop element before\n" <<
-                             "9 - pop element after\n" <<
-                             "10 - print all list's data\n" <<
-                             "11 - check empty list or not\n" <<
-                             "12 - check full list or not\n" <<
-                             "13 - get index of element\n" <<
+                             "1 - Add section back\n" <<
+                             "2 - Add section front\n" <<
+                             "3 - Add section before input section\n" <<
+                             "4 - Add section after input section\n" <<
+                             "5 - Delete section back\n" <<
+                             "6 - Delete section front\n" <<
+                             "7 - Delete section before input section\n" <<
+                             "8 - Delete section after input section\n" <<
+                             "9 - Delete input section\n" <<
+                             "10 - Get count of sections in warehouse\n" <<
+                             "11 - Find input section\n\n" <<
+                             "Work with specific section:\n"
+                             "12 - Add cell back to input section\n" <<
+                             "13 - Add cell front to input section\n" <<
+                             "14 - Add cell after input to specific section\n" <<
+                             "15 - Add cell before input to specific section\n" <<
+                             "16 - Delete cell from specific section\n" <<
+                             "17 - Delete cell back from specific section\n" <<
+                             "18 - Delete cell front from specific section\n" <<
+                             "19 - Delete cell before input cell from specific section\n" <<
+                             "20 - Delete cell after input cell from specific section\n" <<
+                             "21 - Print cells from specific section\n" <<
                              "0 - exist\n====>" << DEFAULT << std::endl;
         std::cin >> input;
-        if (input == "1") {
-            std::cout << "Input data: ";
-            std::cin >> input;
-            list.pushBack(std::stoi(input));
+        if (inptut == "1") {
+
         }
-        else if (input == "2") {
-            std::cout << "Input data: ";
-            std::cin >> input;
-            list.pushFront(std::stoi(input));
-        }
-        else if (input == "3") {
-            std::cout << "Input data: ";
-            std::cin >> input;
-            std::cout << "Input element: ";
-            std::cin >> tmp;
-            list.pushBefore(std::stoi(tmp), std::stoi(input));
-        }
-        else if (input == "4") {
-            std::cout << "Input data: ";
-            std::cin >> input;
-            std::cout << "Input element: ";
-            std::cin >> tmp;
-            list.pushAfter(std::stoi(tmp), std::stoi(input));
-        }
-        else if (input == "5")
-            list.popBack();
-        else if (input == "6")
-            list.popFront();
-        else if (input == "7") {
-            std::cout << "Input element: ";
-            std::cin >> input;
-            list.popElement(std::stoi(input));
-        }
-        else if (input == "8") {
-            std::cout << "Input element: ";
-            std::cin >> tmp;
-            list.popBefore(std::stoi(tmp));
-        }
-        else if (input == "9") {
-            std::cout << "Input element: ";
-            std::cin >> tmp;
-            list.popAfter(std::stoi(tmp));
-        }
-        else if (input == "10")
-            list.printListsData();
-        else if (input == "11")
-            std::cout << "List is empty? " << list.isEmpty() << std::endl;
-        else if (input == "12")
-            std::cout << "List is full? " << list.isFull() << std::endl;
-        else if (input == "13") {
-            std::cout << "Input element: ";
-            std::cin >> tmp;
-            list.findElement(std::stoi(tmp));
-        }
+
         else if (input == "0") {
             std::cout << GREEN << "See you soon!" << DEFAULT << std::endl;
             exit(0);

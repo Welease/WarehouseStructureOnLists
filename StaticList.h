@@ -98,11 +98,8 @@ public:
     }
 
     void	printListsData() {
-        std::cout << GREEN << "Printing list's data..." << DEFAULT << std::endl;
-        std::cout << BLUE << "List size: " << _countOfElements << DEFAULT << std::endl;
-
         for (int i = 0; i < _countOfElements; i++)
-            std::cout << list[i] << ' ';
+            std::cout << list[i] << std::endl;
         std::cout << std::endl;
     }
 

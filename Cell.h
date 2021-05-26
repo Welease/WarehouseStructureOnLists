@@ -11,14 +11,16 @@ private:
     int     _number;
     bool    _isBusy;
 public:
-    Cell(int number, bool isBusy) : _number(number), _isBusy(isBusy) {}
+    Cell(int number, bool isBusy);
 
-    void changeBusyness() { _isBusy = !_isBusy; }
+    void changeBusyness();
+    int getNumber();
+    bool isBusy();
 
-    int getNumber() const { return _number; }
-
-    bool isBusy() const { return _isBusy; }
+    bool operator==(const Cell& cell);
+    friend std::ostream& operator<< (std::ostream &out, const Cell &cell);
 };
 
+std::ostream& operator<< (std::ostream &out, const Cell &cell);
 
 #endif //KURSACH_CELL_H
