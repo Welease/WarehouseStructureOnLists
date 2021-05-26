@@ -33,9 +33,49 @@ int main() {
                              "0 - exist\n====>" << DEFAULT << std::endl;
         std::cin >> input;
         if (inptut == "1") {
-
+            std::cout << "Input number of new section: "; std::cin >> input;
+            warehouse.addSectionBack(std::stoi(input));
         }
-
+        else if (input == "2") {
+            std::cout << "Input number of new section: "; std::cin >> input;
+            warehouse.addSectionFront(std::stoi(input));
+        }
+        else if (input == "3") {
+            std::cout << "Input number of new section: "; std::cin >> input;
+            std::cout << "Input number of section before which: "; std::cin >> tmp;
+            warehouse.addSectionBefore(std::stoi(tmp), std::stoi(input));
+        }
+        else if (input == "4") {
+            std::cout << "Input number of new section: "; std::cin >> input;
+            std::cout << "Input number of section after which: "; std::cin >> tmp;
+            warehouse.addSectionAfter(std::stoi(tmp), std::stoi(input));
+        }
+        else if (input == "5") {
+            std::cout << "Input number of section: "; std::cin >> input;
+            warehouse.popSectionBack(std::stoi(input));
+        }
+        else if (input == "6") {
+            std::cout << "Input number of section: "; std::cin >> input;
+            warehouse.popSectionFront(std::stoi(input));
+        }
+        else if (input == "7") {
+            std::cout << "Input number of section before which: "; std::cin >> tmp;
+            warehouse.popSectionBefore(std::stoi(tmp));
+        }
+        else if (input == "8") {
+            std::cout << "Input number of section after which: "; std::cin >> tmp;
+            warehouse.popSectionAfter(std::stoi(tmp));
+        }
+        else if (input == "9") {
+            std::cout << "Input number of section: "; std::cin >> tmp;
+            warehouse.popSection(std::stoi(tmp));
+        }
+        else if (input == "10")
+            std::cout << "In warehouse " << warehouse.getCountOfSections() << " sections" << std::endl;
+        else if (input == "11") {
+            std::cout << "Input number of section: "; std::cin >> tmp;
+            warehouse.findSection(std::stoi(tmp)).printCells();
+        }
         else if (input == "0") {
             std::cout << GREEN << "See you soon!" << DEFAULT << std::endl;
             exit(0);
