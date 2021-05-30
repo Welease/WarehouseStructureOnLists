@@ -1,30 +1,29 @@
 //
-// Created by Wynn Elease on 5/24/21.
+// Created by Wynn Elease on 5/30/21.
 //
-
 #include "Warehouse.h"
 
 Warehouse::Warehouse(std::string name) : _name(name) {};
 
 void Warehouse::addSectionBack(int num) {
-    _sections.push_back(new Section(num));
+    _sections.push_back(Section(num));
 }
 
 void Warehouse::addSectionFront(int num) {
-    _sections.push_front(new Section(num));
+    _sections.push_front(Section(num));
 }
 
 void Warehouse::addSectionAfter(int numAfter, int num) {
     auto i = _sections.find(Section(numAfter));
-    _sections.insert(i, new Section(num));
+    _sections.insert(i, Section(num));
 }
 
 void Warehouse::addSectionBefore(int numBefore, int num) {
     auto i = _sections.find(Section(numBefore));
     if (i == _sections.begin())
-        _sections.push_front(new Section(num));
+        _sections.push_front(Section(num));
     else
-        _sections.insert(--i, new Section(num));
+        _sections.insert(--i, Section(num));
 }
 
 void Warehouse::popSectionBack() {

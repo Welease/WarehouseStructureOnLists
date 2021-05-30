@@ -33,7 +33,7 @@ int main() {
                              "21 - Print cells from specific section\n" <<
                              "0 - exist\n====>" << DEFAULT << std::endl;
         std::cin >> input;
-        if (inptut == "1") {
+        if (input == "1") {
             std::cout << "Input number of new section: "; std::cin >> input;
             warehouse.addSectionBack(std::stoi(input));
         }
@@ -51,14 +51,8 @@ int main() {
             std::cout << "Input number of section after which: "; std::cin >> tmp;
             warehouse.addSectionAfter(std::stoi(tmp), std::stoi(input));
         }
-        else if (input == "5") {
-            std::cout << "Input number of section: "; std::cin >> input;
-            warehouse.popSectionBack(std::stoi(input));
-        }
-        else if (input == "6") {
-            std::cout << "Input number of section: "; std::cin >> input;
-            warehouse.popSectionFront(std::stoi(input));
-        }
+        else if (input == "5") warehouse.popSectionBack();
+        else if (input == "6") warehouse.popSectionFront();
         else if (input == "7") {
             std::cout << "Input number of section before which: "; std::cin >> tmp;
             warehouse.popSectionBefore(std::stoi(tmp));
@@ -106,23 +100,19 @@ int main() {
         }
         else if (input == "17") {
             std::cout << "Input number of section: "; std::cin >> tmp;
-            std::cout << "Input number of cell: "; std::cin >> input;
-            warehouse.popFromSectionBack(std::stoi(tmp), std::stoi(input));
+            warehouse.popFromSectionBack(std::stoi(tmp));
         }
         else if (input == "18") {
             std::cout << "Input number of section: "; std::cin >> tmp;
-            std::cout << "Input number of cell: "; std::cin >> input;
-            warehouse.popFromSectionFront(std::stoi(tmp), std::stoi(input));
+            warehouse.popFromSectionFront(std::stoi(tmp));
         }
         else if (input == "19") {
             std::cout << "Input number of section: "; std::cin >> tmp;
-            std::cout << "Input number of cell before: "; std::cin >> input;
-            warehouse.popFromSectionFront(std::stoi(tmp), std::stoi(input));
+            warehouse.popFromSectionFront(std::stoi(tmp));
         }
         else if (input == "20") {
             std::cout << "Input number of section: "; std::cin >> tmp;
-            std::cout << "Input number of cell after: "; std::cin >> input;
-            warehouse.popFromSectionFront(std::stoi(tmp), std::stoi(input));
+            warehouse.popFromSectionFront(std::stoi(tmp));
         }
         else if (input == "21") {
             std::cout << "Input number of section: "; std::cin >> tmp;

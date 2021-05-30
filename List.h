@@ -46,7 +46,7 @@ public:
 
     template<class InputIterator>
     list(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
-         typename ft::enable_if<std::__is_input_iterator<InputIterator>::value>::type* = 0){
+         typename enable_if<std::__is_input_iterator<InputIterator>::value>::type* = 0){
         _size = 0;
         createAbstractNode();
         while (first != last){
@@ -95,7 +95,7 @@ public:
 
         template<class InputIterator>
         void assign(InputIterator first, InputIterator last,
-                    typename ft::enable_if<std::__is_input_iterator<InputIterator>::value>::type* = 0){
+                    typename enable_if<std::__is_input_iterator<InputIterator>::value>::type* = 0){
             clearList();
             while (first != last){
                 push_back(*first);
@@ -174,7 +174,7 @@ public:
 
         template<class InputIterator>
         void insert(iterator position, InputIterator first, InputIterator last,
-                    typename ft::enable_if<std::__is_input_iterator<InputIterator>::value>::type* = 0){
+                    typename enable_if<std::__is_input_iterator<InputIterator>::value>::type* = 0){
             iterator tmp = position;
             while (first != last){
                 tmp = insert(tmp, *first++);
@@ -523,8 +523,8 @@ private:
 
     template <class T, class Alloc>
     bool operator==(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) {
-        typename ft::list<T, Alloc>::iterator it = rhs.begin();
-        typename ft::list<T, Alloc>::iterator i = lhs.begin();
+        typename list<T, Alloc>::iterator it = rhs.begin();
+        typename list<T, Alloc>::iterator i = lhs.begin();
         if (lhs.size() == rhs.size() && lhs.size() == 0)
             return true;
         if (lhs.size() == rhs.size()) {
@@ -541,10 +541,10 @@ private:
 
     template <class T, class Alloc>
     bool operator<  (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) {
-        typename ft::list<T, Alloc>::iterator it = rhs.begin();
-        typename ft::list<T, Alloc>::iterator i = lhs.begin();
-        typename ft::list<T, Alloc>::iterator ite = rhs.end();
-        typename ft::list<T, Alloc>::iterator ie = lhs.end();
+        typename list<T, Alloc>::iterator it = rhs.begin();
+        typename list<T, Alloc>::iterator i = lhs.begin();
+        typename list<T, Alloc>::iterator ite = rhs.end();
+        typename list<T, Alloc>::iterator ie = lhs.end();
 
         if (lhs.size() == rhs.size() && lhs.size() == 0)
             return false;

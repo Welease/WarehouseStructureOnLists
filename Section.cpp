@@ -7,15 +7,15 @@
 Section::Section(int sectionNum) : _sectionNum(sectionNum) {};
 
 void Section::pushBackCell(int num) {
-    cells.pushBack(new Cell(num));
+    cells.pushBack(Cell(num, false));
 }
 
 void Section::pushFrontCell(int num) {
-    cells.pushFront(new Cell(num));
+    cells.pushFront(Cell(num, false));
 }
 
 int Section::findCell(int num) {
-    Cell cell(num);
+    Cell cell(num, false);
     return (cells.findElement(cell));
 }
 
@@ -24,14 +24,14 @@ int Section::getCountOfCells() {
 }
 
 void Section::pushCellBefore(int numBefore, int num) {
-    Cell cellBef(numBefore);
-    Cell cell(num);
+    Cell cellBef(numBefore, false);
+    Cell cell(num, false);
     cells.pushBefore(cellBef, cell);
 }
 
 void Section::pushCellAfter(int numAfter, int num) {
-    Cell cellAfter(numAfter);
-    Cell cell(num);
+    Cell cellAfter(numAfter, false);
+    Cell cell(num, false);
     cells.pushBefore(cellAfter, cell);
 }
 
@@ -41,7 +41,7 @@ void Section::printCells() {
 }
 
 void Section::popCell(int num) {
-    Cell cell(num);
+    Cell cell(num, false);
     cells.popElement(cell);
 }
 
@@ -54,12 +54,12 @@ void Section::popCellFront() {
 }
 
 void Section::popCellAfter(int num) {
-    Cell cell(num);
+    Cell cell(num, false);
     cells.popAfter(cell);
 }
 
 void Section::popCellBefore(int num) {
-    Cell cell(num);
+    Cell cell(num, false);
     cells.popBefore(cell);
 }
 

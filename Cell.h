@@ -4,18 +4,19 @@
 
 #ifndef KURSACH_CELL_H
 #define KURSACH_CELL_H
-
+#include <iostream>
 
 class Cell {
 private:
     int     _number;
     bool    _isBusy;
 public:
+    Cell();
     Cell(int number, bool isBusy);
 
     void changeBusyness();
-    int getNumber();
-    bool isBusy();
+    int getNumber() const;
+    bool isBusy() const;
 
     bool operator==(const Cell& cell);
     friend std::ostream& operator<< (std::ostream &out, const Cell &cell);
