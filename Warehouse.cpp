@@ -5,29 +5,21 @@
 
 Warehouse::Warehouse(std::string & name) : _name(name) {};
 
-void Warehouse::addSectionBack(int num) {
-    _sections.push_back(Section(num));
-}
-
-void Warehouse::addSectionFront(int num) {
-    _sections.push_front(Section(num));
-}
-
 void Warehouse::addSectionAfter(int numAfter, int num) {
     auto i = _sections.find(Section(numAfter));
     _sections.insert(i, Section(num));
 }
 
 void Warehouse::addSectionBefore(int numBefore, int num) {
+    if (_sections.empty()) {
+        _sections.push_front(Section(numBefore));
+        return;
+    }
     auto i = _sections.find(Section(numBefore));
     if (i == _sections.end()) std::cout << RED << "No such element in warehouse" << DEFAULT << std::endl;
     else if (i == _sections.begin()) _sections.push_front(Section(num));
     else _sections.insert(i, Section(num));
 }
-
-void Warehouse::popSectionBack() { _sections.pop_back(); }
-
-void Warehouse::popSectionFront() { _sections.pop_front(); }
 
 void Warehouse::popSection(int num) { _sections.erase(_sections.find(Section(num))); }
 
@@ -47,17 +39,6 @@ void Warehouse::printWarehousesData() {
 
 int Warehouse::getCountOfSections() { return _sections.size(); }
 
-
-void Warehouse::addCellToSectionBack(int numOfSec, int num) {
-    Section section(numOfSec);
-    _sections.find(section)->pushBackCell(num);
-}
-
-void Warehouse::addCellToSectionFront(int numOfSec, int num) {
-    Section section(numOfSec);
-    _sections.find(section)->pushFrontCell(num);
-}
-
 void Warehouse::addCellToSectionAfter(int numOfSec, int numAfter, int num) {
     Section section(numOfSec);
     (++_sections.find(section))->pushBackCell(num);
@@ -74,17 +55,12 @@ void Warehouse::popFromSection(int numOfSec, int num) {
     _sections.find(section)->popCell(num);
 }
 
-void Warehouse::popFromSectionFront(int numOfSec) {
-    Section section(numOfSec);
-    _sections.find(section)->popCellFront();
-}
-
-void Warehouse::popFromSectionBack(int numOfSec) {
-    Section section(numOfSec);
-    _sections.find(section)->popCellBack();
-}
-
 void Warehouse::popFromSectionAfter(int numOfSec, int num) {
+    Section section(numOfSec);
+    _sections.find(section)->popCellBefore(num);
+}
+
+void Warehouse::popFromSectionBefore(int numOfSec, int num) {
     Section section(numOfSec);
     _sections.find(section)->popCellBefore(num);
 }

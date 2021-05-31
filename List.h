@@ -118,7 +118,7 @@ public:
 
         template<class iterator>
         void insert(iterator position, iterator first, iterator last,
-                    typename enable_if<std::__is_move_iterator<iterator>::value>::type* = 0){
+                    typename enable_if<std::__is_input_iterator<iterator>::value>::type* = 0){
             iterator tmp = position;
             while (first != last) {
                 tmp = insert(tmp, *first++);
