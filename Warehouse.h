@@ -14,7 +14,7 @@ private:
     list<Section> _sections;
 
 public:
-    Warehouse(std::string name);
+    Warehouse(std::string & name);
     void addSectionBack(int num);
     void addSectionFront(int num);
     void addSectionAfter(int numAfter, int num);

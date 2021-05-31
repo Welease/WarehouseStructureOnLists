@@ -18,6 +18,7 @@ int main() {
                              "8 - Delete section after input section\n" <<
                              "9 - Delete input section\n" <<
                              "10 - Get count of sections in warehouse\n" <<
+                             "d - Print warehouses data\n" <<
                              "11 - Find input section\n\n" <<
 
                              "Work with specific section:\n"
@@ -65,8 +66,8 @@ int main() {
             std::cout << "Input number of section: "; std::cin >> tmp;
             warehouse.popSection(std::stoi(tmp));
         }
-        else if (input == "10")
-            std::cout << "In warehouse " << warehouse.getCountOfSections() << " sections" << std::endl;
+        else if (input == "10") std::cout << "In warehouse " << warehouse.getCountOfSections() << " sections" << std::endl;
+        else if (input == "d") warehouse.printWarehousesData();
         else if (input == "11") {
             std::cout << "Input number of section: "; std::cin >> tmp;
             warehouse.findSection(std::stoi(tmp)).printCells();
@@ -122,8 +123,6 @@ int main() {
             std::cout << GREEN << "See you soon!" << DEFAULT << std::endl;
             exit(0);
         }
-        else {
-            std::cout << RED << "Incorrect command :(" << DEFAULT << std::endl;
-        }
+        else std::cout << RED << "Incorrect command :(" << DEFAULT << std::endl;
     }
 }

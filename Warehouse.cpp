@@ -3,7 +3,7 @@
 //
 #include "Warehouse.h"
 
-Warehouse::Warehouse(std::string name) : _name(name) {};
+Warehouse::Warehouse(std::string & name) : _name(name) {};
 
 void Warehouse::addSectionBack(int num) {
     _sections.push_back(Section(num));
@@ -20,41 +20,28 @@ void Warehouse::addSectionAfter(int numAfter, int num) {
 
 void Warehouse::addSectionBefore(int numBefore, int num) {
     auto i = _sections.find(Section(numBefore));
-    if (i == _sections.begin())
-        _sections.push_front(Section(num));
-    else
-        _sections.insert(--i, Section(num));
+    if (i == _sections.end()) std::cout << RED << "No such element in warehouse" << DEFAULT << std::endl;
+    else if (i == _sections.begin()) _sections.push_front(Section(num));
+    else _sections.insert(i, Section(num));
 }
 
-void Warehouse::popSectionBack() {
-    _sections.pop_back();
-}
+void Warehouse::popSectionBack() { _sections.pop_back(); }
 
-void Warehouse::popSectionFront() {
-    _sections.pop_front();
-}
+void Warehouse::popSectionFront() { _sections.pop_front(); }
 
-void Warehouse::popSection(int num) {
-    _sections.erase(_sections.find(Section(num)));
-}
+void Warehouse::popSection(int num) { _sections.erase(_sections.find(Section(num))); }
 
-void Warehouse::popSectionAfter(int num) {
-    _sections.erase(++_sections.find(Section(num)));
-}
+void Warehouse::popSectionAfter(int num) { _sections.erase(++_sections.find(Section(num))); }
 
-void Warehouse::popSectionBefore(int num) {
-    _sections.erase(--_sections.find(Section(num)));
-}
+void Warehouse::popSectionBefore(int num) { _sections.erase(--_sections.find(Section(num))); }
 
-Section Warehouse::findSection(int num) {
-    return *_sections.find(Section(num));
-}
+Section Warehouse::findSection(int num) { return *_sections.find(Section(num)); }
 
 void Warehouse::printWarehousesData() {
-    std::cout << "WAREHOUSE " << _name << std::endl;
+    std::cout << "WAREHOUSE: " << _name << std::endl;
     for (auto i = _sections.begin(); i != _sections.end(); ++i) {
-        std::cout << "Section № " << i->getNum() << "\n----------" << std::endl;
         i->printCells();
+        std::cout << "----------------" << std::endl;
     }
 }
 
