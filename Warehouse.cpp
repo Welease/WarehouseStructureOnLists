@@ -7,12 +7,12 @@ Warehouse::Warehouse(std::string & name) : _name(name) {};
 
 void Warehouse::addSectionAfter(int numAfter, int num) {
     auto i = _sections.find(Section(numAfter));
-    _sections.insert(i, Section(num));
+    _sections.insert(++i, Section(num));
 }
 
 void Warehouse::addSectionBefore(int numBefore, int num) {
     if (_sections.empty()) {
-        _sections.push_front(Section(numBefore));
+        _sections.push_front(Section(num));
         return;
     }
     auto i = _sections.find(Section(numBefore));
@@ -27,7 +27,7 @@ void Warehouse::popSectionAfter(int num) { _sections.erase(++_sections.find(Sect
 
 void Warehouse::popSectionBefore(int num) { _sections.erase(--_sections.find(Section(num))); }
 
-Section Warehouse::findSection(int num) { return *_sections.find(Section(num)); }
+Section *Warehouse::findSection(int num) { return &*_sections.find(Section(num)); }
 
 void Warehouse::printWarehousesData() {
     std::cout << "WAREHOUSE: " << _name << std::endl;
@@ -41,12 +41,12 @@ int Warehouse::getCountOfSections() { return _sections.size(); }
 
 void Warehouse::addCellToSectionAfter(int numOfSec, int numAfter, int num) {
     Section section(numOfSec);
-    (++_sections.find(section))->pushBackCell(num);
+    (_sections.find(section))->pushCellAfter(numAfter, num);
 }
 
 void Warehouse::addCellToSectionBefore(int numOfSec, int numBefore, int num) {
     Section section(numOfSec);
-    (--_sections.find(section))->pushBackCell(num);
+    (_sections.find(section))->pushCellBefore(numBefore, num);
 }
 
 

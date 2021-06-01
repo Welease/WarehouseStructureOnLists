@@ -10,10 +10,6 @@ void Section::pushBackCell(int num) {
     cells.pushBack(Cell(num, false));
 }
 
-void Section::pushFrontCell(int num) {
-    cells.pushFront(Cell(num, false));
-}
-
 int Section::findCell(int num) {
     Cell cell(num, false);
     return (cells.findElement(cell));
@@ -32,7 +28,7 @@ void Section::pushCellBefore(int numBefore, int num) {
 void Section::pushCellAfter(int numAfter, int num) {
     Cell cellAfter(numAfter, false);
     Cell cell(num, false);
-    cells.pushBefore(cellAfter, cell);
+    cells.pushAfter(cellAfter, cell);
 }
 
 void Section::printCells() {
@@ -45,14 +41,6 @@ void Section::popCell(int num) {
     cells.popElement(cell);
 }
 
-void Section::popCellBack() {
-    cells.popBack();
-}
-
-void Section::popCellFront() {
-    cells.popFront();
-}
-
 void Section::popCellAfter(int num) {
     Cell cell(num, false);
     cells.popAfter(cell);
@@ -63,7 +51,7 @@ void Section::popCellBefore(int num) {
     cells.popBefore(cell);
 }
 
-bool Section::operator==(Section &section) {
+bool Section::operator==(Section &section) const {
     return section.getNum() == _sectionNum;
 }
 

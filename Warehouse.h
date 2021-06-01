@@ -20,7 +20,7 @@ public:
     void popSectionBefore(int num);
     void popSectionAfter(int num);
     void popSection(int num);
-    Section findSection(int num);
+    Section *findSection(int num);
     void printWarehousesData();
     int  getCountOfSections();
 

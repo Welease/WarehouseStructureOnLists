@@ -15,19 +15,16 @@ private:
 public:
     Section(int sectionNum);
     void pushBackCell(int num);
-    void pushFrontCell(int num);
     int  findCell(int num);
     int  getCountOfCells();
     void pushCellBefore(int numBefore, int num);
     void pushCellAfter(int numAfter, int num);
     void printCells();
     void popCell(int num);
-    void popCellBack();
-    void popCellFront();
     void popCellBefore(int num);
     void popCellAfter(int num);
 
-    bool operator==(Section & section);
+    bool operator==(Section & section) const;
     int getNum();
 };
 

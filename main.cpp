@@ -1,9 +1,20 @@
 #include <iostream>
 #include "Warehouse.h"
 
+int checkInput() {
+    int a;
+    while (!(std::cin >> a) || (std::cin.peek() != '\n')) {
+        std::cin.clear();
+        while (std::cin.get() != '\n');
+        std::cout << RED << "Incorrect input, please try again: " << DEFAULT;
+    }
+    return a;
+}
+
 int main() {
     std::string input;
-    std::string tmp, temp;
+    int secNum, cellNum, tmp = 0;
+    Section * sec;
     std::cout << BLUE << "Input name of Warehouse: " << DEFAULT; std::cin >> input;
     Warehouse warehouse(input);
     while (1) {
@@ -27,66 +38,71 @@ int main() {
                              "0 - exist\n====>" << DEFAULT << std::endl;
         std::cin >> input;
         if (input == "1") {
-            std::cout << "Input number of new section: "; std::cin >> input; tmp = "1";
-            if (warehouse.getCountOfSections() != 0) {
+            if (warehouse.getCountOfSections()) {
                 std::cout << "Input number of section before which: ";
-                std::cin >> tmp;
+                cellNum = checkInput();
             }
-            warehouse.addSectionBefore(std::stoi(tmp), std::stoi(input));
+            std::cout << "Input number of new section: ";
+            warehouse.addSectionBefore(cellNum, checkInput());
         }
         else if (input == "2") {
-            std::cout << "Input number of new section: "; std::cin >> input;
-            std::cout << "Input number of section after which: "; std::cin >> tmp;
-            warehouse.addSectionAfter(std::stoi(tmp), std::stoi(input));
+            if (warehouse.getCountOfSections()) {
+                std::cout << "Input number of section after which: ";
+                cellNum = checkInput();
+            }
+            std::cout << "Input number of new section: ";
+            warehouse.addSectionAfter(cellNum, checkInput());
         }
         else if (input == "3") {
-            std::cout << "Input number of section before which: "; std::cin >> tmp;
-            warehouse.popSectionBefore(std::stoi(tmp));
+            std::cout << "Input number of section before which: ";
+            warehouse.popSectionBefore(checkInput());
         }
         else if (input == "4") {
-            std::cout << "Input number of section after which: "; std::cin >> tmp;
-            warehouse.popSectionAfter(std::stoi(tmp));
+            std::cout << "Input number of section after which: ";
+            warehouse.popSectionAfter(checkInput());
         }
         else if (input == "5") {
-            std::cout << "Input number of section: "; std::cin >> tmp;
-            warehouse.popSection(std::stoi(tmp));
+            std::cout << "Input number of section: ";
+            warehouse.popSection(checkInput());
         }
         else if (input == "6") std::cout << "In warehouse " << warehouse.getCountOfSections() << " sections" << std::endl;
         else if (input == "7") warehouse.printWarehousesData();
         else if (input == "8") {
-            std::cout << "Input number of section: "; std::cin >> tmp;
-            warehouse.findSection(std::stoi(tmp)).printCells();
+            std::cout << "Input number of section: ";
+            if ((sec = warehouse.findSection(checkInput()))) sec->printCells();
+            else std::cout << RED << "No such section in warehouse" << DEFAULT << std::endl;
         }
-        else if (input == "9") {
-            std::cout << "Input number of section: "; std::cin >> tmp;
-            std::cout << "Input number of new cell: "; std::cin >> input;
-            std::cout << "Input number of cell after which: "; std::cin >> temp;
-            warehouse.addCellToSectionAfter(std::stoi(tmp), std::stoi(temp), std::stoi(input));
-        }
-        else if (input == "10") {
-            std::cout << "Input number of section: "; std::cin >> tmp;
-            std::cout << "Input number of new cell: "; std::cin >> input;
-            std::cout << "Input number of cell before which: "; std::cin >> temp;
-            warehouse.addCellToSectionBefore(std::stoi(tmp), std::stoi(temp), std::stoi(input));
-        }
-        else if (input == "11") {
-            std::cout << "Input number of section: "; std::cin >> tmp;
-            std::cout << "Input number of cell: "; std::cin >> input;
-            warehouse.popFromSection(std::stoi(tmp), std::stoi(input));
-        }
-        else if (input == "12") {
-            std::cout << "Input number of section: "; std::cin >> tmp;
-            std::cout << "Input number of cell before which: "; std::cin >> temp;
-            warehouse.popFromSectionBefore(std::stoi(tmp), std::stoi(temp));
-        }
-        else if (input == "13") {
-            std::cout << "Input number of section: "; std::cin >> tmp;
-            std::cout << "Input number of cell after which: "; std::cin >> temp;
-            warehouse.popFromSectionAfter(std::stoi(tmp), std::stoi(temp));
-        }
-        else if (input == "14") {
-            std::cout << "Input number of section: "; std::cin >> tmp;
-            warehouse.printSectionsData(std::stoi(tmp));
+        else if (input == "9" || input == "10" || input == "11" || input == "12" || input == "13" || input == "14") {
+            if (warehouse.getCountOfSections()) {
+                std::cout << "Input number of section: ";
+                secNum = checkInput();
+                if (warehouse.findSection(secNum)) {
+                    if (input == "9") {
+                        if (warehouse.findSection(secNum)->getCountOfCells()) {
+                            std::cout << "Input number of cell after which: ";
+                            tmp = checkInput();
+                        }
+                        std::cout << "Input number of new cell: ";
+                        warehouse.addCellToSectionAfter(secNum, tmp, checkInput());
+                    } else if (input == "10") {
+                        if (warehouse.findSection(secNum)->getCountOfCells()) {
+                            std::cout << "Input number of cell before which: ";
+                            tmp = checkInput();
+                        }
+                        std::cout << "Input number of new cell: ";
+                        warehouse.addCellToSectionBefore(secNum, tmp, checkInput());
+                    } else if (input == "11") {
+                        std::cout << "Input number of cell: ";
+                        warehouse.popFromSection(secNum, checkInput());
+                    } else if (input == "12") {
+                        std::cout << "Input number of cell before which: ";
+                        warehouse.popFromSectionBefore(secNum, checkInput());
+                    } else if (input == "13") {
+                        std::cout << "Input number of cell after which: ";
+                        warehouse.popFromSectionAfter(secNum, checkInput());
+                    } else if (input == "14") warehouse.printSectionsData(secNum);
+                } else std::cout << RED << "No such section in warehouse" << DEFAULT << std::endl;
+            } else std::cout << RED << "Warehouse is empty" << DEFAULT << std::endl;
         }
         else if (input == "0") {
             std::cout << GREEN << "See you soon!" << DEFAULT << std::endl;

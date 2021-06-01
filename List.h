@@ -88,14 +88,6 @@ public:
             this->_size++;
         };
 
-        void pop_back(){
-            t_node *tmp = _abstractNode->prev;
-            tmp->prev->next = _abstractNode;
-            _abstractNode->prev = tmp->prev;
-            deleteNode(tmp);
-            _size--;
-        };
-
         iterator insert(iterator position, const value_type &val){
             iterator tmp = position;
             if (position != end()) {
@@ -202,15 +194,12 @@ public:
             }
 
             iterator(iterator &iterator1){*this = iterator1;}
-
             iterator(const iterator &iterator1){*this = iterator1;}
-
             iterator(node<value_type> *el){ _node = el;};
 
             ~iterator() {};
 
             bool operator==(iterator const &iterator) const {return iterator.getNode() == this->_node;}
-
             bool operator!=(iterator const &iterator) const {return iterator.getNode() != this->_node;}
 
             virtual iterator &operator++(){ //pref

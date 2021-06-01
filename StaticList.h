@@ -48,24 +48,13 @@ public:
         }
     }
 
-    void pushFront(T data) {
+    void pushBefore(T beforeWhich, T data) {
         if (isFull()) {
             std::cout << RED << "List is full" << DEFAULT << std::endl;
             return;
         }
-        if (isEmpty())
-            list[_countOfElements++] = data;
-        else {
-            for (int i = _countOfElements; i > 0; i--)
-                list[i] = list[i - 1];
-            list[0] = data;
-            _countOfElements++;
-        }
-    }
-
-    void pushBefore(T beforeWhich, T data) {
-        if (isFull()) {
-            std::cout << RED << "List is full" << DEFAULT << std::endl;
+        if (!_countOfElements) {
+            pushBack(data);
             return;
         }
         int i = findElement(beforeWhich);
@@ -86,7 +75,7 @@ public:
             return;
         }
         int i = findElement(afterWhich);
-        if (i++ == -1) {
+        if (i++ == -1 && _countOfElements > 0) {
             std::cout << RED << "Element not found :(" << DEFAULT << std::endl;
             return;
         }
@@ -101,24 +90,6 @@ public:
         for (int i = 0; i < _countOfElements; i++)
             std::cout << list[i] << std::endl;
         std::cout << std::endl;
-    }
-
-    void popBack() {
-        if (isEmpty()) {
-            std::cout << RED << "List is empty" << DEFAULT << std::endl;
-            return;
-        }
-        _countOfElements--;
-    }
-
-    void popFront() {
-        if (isEmpty()) {
-            std::cout << RED << "List is empty" << DEFAULT << std::endl;
-            return;
-        }
-        for (int j = 0; j < _countOfElements; j++)
-            list[j] = list[j + 1];
-        _countOfElements--;
     }
 
     void popElement(T elem) {
@@ -146,8 +117,8 @@ public:
             std::cout << RED << "Element not found :(" << DEFAULT << std::endl;
             return;
         }
-        if (i-- == 0) {
-            std::cout << RED << "Can't push before head :(" << DEFAULT << std::endl;
+        if (i-- == _countOfElements) {
+            std::cout << RED << "Can't delete after last element :(" << DEFAULT << std::endl;
             return;
         }
         for (; i < _countOfElements; i++)
