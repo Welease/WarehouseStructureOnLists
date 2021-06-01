@@ -117,8 +117,8 @@ public:
             std::cout << RED << "Element not found :(" << DEFAULT << std::endl;
             return;
         }
-        if (i-- == _countOfElements) {
-            std::cout << RED << "Can't delete after last element :(" << DEFAULT << std::endl;
+        if (i-- == 0) {
+            std::cout << RED << "Can't delete before first element :(" << DEFAULT << std::endl;
             return;
         }
         for (; i < _countOfElements; i++)
@@ -133,9 +133,10 @@ public:
         }
         int i = findElement(afterWhich);
         if (i == -1 || i + 1 >= _countOfElements) {
-            std::cout << RED << "Element not found :(" << DEFAULT << std::endl;
+            std::cout << RED << "Can't delete such element :(" << DEFAULT << std::endl;
             return;
         }
+        i++;
         for (; i < _countOfElements; i++)
             list[i] = list[i + 1];
         _countOfElements--;

@@ -37,7 +37,7 @@ void Warehouse::printWarehousesData() {
     }
 }
 
-int Warehouse::getCountOfSections() { return _sections.size(); }
+int Warehouse::getCountOfSections() { return static_cast<int>(_sections.size()); }
 
 void Warehouse::addCellToSectionAfter(int numOfSec, int numAfter, int num) {
     Section section(numOfSec);
@@ -57,7 +57,7 @@ void Warehouse::popFromSection(int numOfSec, int num) {
 
 void Warehouse::popFromSectionAfter(int numOfSec, int num) {
     Section section(numOfSec);
-    _sections.find(section)->popCellBefore(num);
+    _sections.find(section)->popCellAfter(num);
 }
 
 void Warehouse::popFromSectionBefore(int numOfSec, int num) {
