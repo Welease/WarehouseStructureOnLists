@@ -1,0 +1,40 @@
+-----------------------------------------------
+           WAREHOUSE: MyWarehouse                  
+-----------------------------------------------
+ Section № 1           Cell № 1 (busy)
+
+                       Cell № 2 (busy)
+
+                       Cell № 3 (not busy)
+
+-----------------------------------------------
+ Section № 2           Cell № 1 (not busy)
+
+                       Cell № 2 (not busy)
+
+                       Cell № 3 (not busy)
+
+-----------------------------------------------
+ Section № 3           Cell № 1 (busy)
+
+                       Cell № 2 (busy)
+
+                       Cell № 3 (not busy)
+
+                       Cell № 3 (not busy)
+
+                       Cell № 3 (not busy)
+
+                       Cell № 3 (not busy)
+
+-----------------------------------------------
+ Section № 4           Cell № 23 (not busy)
+
+-----------------------------------------------
+ Section № 7           Cell № 1 (not busy)
+
+                       Cell № 2 (not busy)
+
+                       Cell № 3 (not busy)
+
+-----------------------------------------------

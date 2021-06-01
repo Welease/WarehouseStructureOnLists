@@ -19,7 +19,7 @@ public:
     int  getCountOfCells();
     void pushCellBefore(int numBefore, int num);
     void pushCellAfter(int numAfter, int num);
-    void printCells();
+    void printCells(std::ostream & outFile);
     void popCell(int num);
     void popCellBefore(int num);
     void popCellAfter(int num);

@@ -19,6 +19,6 @@ int main(int argc, char** argv) {
         std::cin >> input;
         Warehouse warehouse(input);
         warehouse.parseFilesData(fileIn);
-        menuForWarehouse(warehouse);
+        menuForWarehouse(warehouse, fileOut);
     } else std::cout << RED << "usage: ./kursach <input_file_with_info> <output_file>" << DEFAULT << std::endl;
 }

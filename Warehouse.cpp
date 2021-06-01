@@ -29,13 +29,13 @@ void Warehouse::popSectionBefore(int num) { _sections.erase(--_sections.find(Sec
 
 Section *Warehouse::findSection(int num) { return &*_sections.find(Section(num)); }
 
-void Warehouse::printWarehousesData() {
-    std::cout << "-----------------------------------------------" << std::endl;
-    std::cout << "           WAREHOUSE: " << _name << "         " << std::endl;
-    std::cout << "-----------------------------------------------" << std::endl;
+void Warehouse::printWarehousesData(std::ostream & outFile) {
+    outFile << "-----------------------------------------------" << std::endl;
+    outFile << "           WAREHOUSE: " << _name << "         " << std::endl;
+    outFile << "-----------------------------------------------" << std::endl;
     for (auto i = _sections.begin(); i != _sections.end(); ++i) {
-        i->printCells();
-        std::cout << "-----------------------------------------------" << std::endl;
+        i->printCells(outFile);
+        outFile << "-----------------------------------------------" << std::endl;
     }
 }
 
@@ -67,9 +67,9 @@ void Warehouse::popFromSectionBefore(int numOfSec, int num) {
     _sections.find(section)->popCellBefore(num);
 }
 
-void Warehouse::printSectionsData(int numOfSec) {
+void Warehouse::printSectionsData(int numOfSec, std::ostream & outfile) {
     Section section(numOfSec);
-    _sections.find(section)->printCells();
+    _sections.find(section)->printCells(outfile);
 }
 
 int Warehouse::getCountOfCellsInSection(int numOfSec) {

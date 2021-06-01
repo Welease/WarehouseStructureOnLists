@@ -7,6 +7,8 @@
 
 
 #include <iostream>
+#include <fstream>
+
 #define SIZE 10
 #include "Colors.h"
 
@@ -92,11 +94,11 @@ public:
         _countOfElements++;
     }
 
-    void	printListsData() {
+    void	printListsData(std::ostream & outFile) {
         for (int i = 0; i < _countOfElements; i++) {
             if (i > 0)
-                std::cout << "            ";
-            std::cout << "           " << list[i] << std::endl;
+                outFile << "            ";
+            outFile << "           " << list[i] << std::endl;
         }
     }
 

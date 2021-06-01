@@ -13,7 +13,7 @@ int checkInput() {
     return a;
 }
 
-void menuForSpecificSection(Warehouse & warehouse, std::string & input) {
+void menuForSpecificSection(Warehouse & warehouse, std::string & input, std::ostream & of) {
     int secNum, tmp = 0, cellNum;
     Cell *cell;
     if (warehouse.getCountOfSections()) {
@@ -43,7 +43,7 @@ void menuForSpecificSection(Warehouse & warehouse, std::string & input) {
             } else if (input == "13") {
                 std::cout << "Input number of cell after which: ";
                 warehouse.popFromSectionAfter(secNum, checkInput());
-            } else if (input == "14") warehouse.printSectionsData(secNum);
+            } else if (input == "14") warehouse.printSectionsData(secNum, of);
             else if (input == "15")
                 std::cout << "In section " << secNum << ": " << warehouse.getCountOfCellsInSection(secNum) << " cells" << std::endl;
             else if (input == "16") {
@@ -70,7 +70,8 @@ void printWelcomeMessage() {
               "5 - Delete input section\n" <<
               "6 - Get count of sections in warehouse\n" <<
               "7 - Print warehouses data\n" <<
-              "8 - Find input section\n\n" <<
+              "8 - Find input section\n" <<
+              "S - Save in file\n" <<
 
               "Work with specific section:\n"
               "9 - Add cell after input to specific section\n" <<
@@ -86,7 +87,7 @@ void printWelcomeMessage() {
 }
 
 
-void menuForWarehouse(Warehouse & warehouse) {
+void menuForWarehouse(Warehouse & warehouse, std::ostream & outFile) {
     std::string input;
     int cellNum;
     Section * sec;
@@ -122,15 +123,16 @@ void menuForWarehouse(Warehouse & warehouse) {
             warehouse.popSection(checkInput());
         }
         else if (input == "6") std::cout << "In warehouse " << warehouse.getCountOfSections() << " sections" << std::endl;
-        else if (input == "7") warehouse.printWarehousesData();
+        else if (input == "7") warehouse.printWarehousesData(std::cout);
         else if (input == "8") {
             std::cout << "Input number of section: ";
-            if ((sec = warehouse.findSection(checkInput()))) sec->printCells();
+            if ((sec = warehouse.findSection(checkInput()))) sec->printCells(std::cout);
             else std::cout << RED << "No such section in warehouse" << DEFAULT << std::endl;
         }
+        else if (input == "S") warehouse.printWarehousesData(outFile);
         else if (input == "9" || input == "10" || input == "11" || input == "12" ||
                  input == "13" || input == "14" || input == "15" || input == "16" || input == "17") {
-            menuForSpecificSection(warehouse, input);
+            menuForSpecificSection(warehouse, input, outFile);
         }
         else if (input == "0") {
             std::cout << GREEN << "See you soon!" << DEFAULT << std::endl;

@@ -10,8 +10,8 @@
 #include "Warehouse.h"
 
 int checkInput();
-void menuForSpecificSection(Warehouse & warehouse, std::string & input);
+void menuForSpecificSection(Warehouse & warehouse, std::string & input, std::ostream & of);
 void printWelcomeMessage();
-void menuForWarehouse(Warehouse & warehouse);
+void menuForWarehouse(Warehouse & warehouse, std::ostream & outFile);
 
 #endif //WAREHOUSESTRUCTUREONLISTS_MENUUTILS_H

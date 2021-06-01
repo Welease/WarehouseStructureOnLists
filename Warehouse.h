@@ -25,7 +25,7 @@ public:
     void popSectionAfter(int num);
     void popSection(int num);
     Section *findSection(int num);
-    void printWarehousesData();
+    void printWarehousesData(std::ostream & outFile);
     int  getCountOfSections();
 
     //work with specific section in warehouse
@@ -34,7 +34,7 @@ public:
     void popFromSectionBefore(int numOfSec, int num);
     void popFromSectionAfter(int numOfSec, int num);
     void popFromSection(int numOfSec, int num);
-    void printSectionsData(int numOfSec);
+    void printSectionsData(int numOfSec, std::ostream & outfile);
     int  getCountOfCellsInSection(int numOfSec);
     Cell *findCellInSection(int numOfSec, int num);
     void changeBusy(int numOfSec, int num);

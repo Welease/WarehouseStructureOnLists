@@ -2,6 +2,7 @@
 // Created by Wynn Elease on 5/24/21.
 //
 
+#include <fstream>
 #include "Section.h"
 
 Section::Section(int sectionNum) : _sectionNum(sectionNum) {};
@@ -31,11 +32,11 @@ void Section::pushCellAfter(int numAfter, int num) {
     cells.pushAfter(cellAfter, cell);
 }
 
-void Section::printCells() {
-    std::cout << " Section № " << _sectionNum;
+void Section::printCells(std::ostream & outFile) {
+    outFile << " Section № " << _sectionNum;
     if (cells.isEmpty())
-        std::cout << std::endl;
-    cells.printListsData();
+        outFile << std::endl;
+    cells.printListsData(outFile);
 }
 
 void Section::popCell(int num) {
