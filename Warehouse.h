@@ -14,7 +14,7 @@ private:
     list<Section> _sections;
 
 public:
-    Warehouse(std::string & name);
+    explicit Warehouse(std::string & name);
     void addSectionAfter(int numAfter, int num);
     void addSectionBefore(int numBefore, int num);
     void popSectionBefore(int num);
@@ -31,6 +31,8 @@ public:
     void popFromSection(int numOfSec, int num);
     void printSectionsData(int numOfSec);
     int  getCountOfCellsInSection(int numOfSec);
+    Cell *findCellInSection(int numOfSec, int num);
+    void changeBusy(int numOfSec, int num);
 };
 
 

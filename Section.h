@@ -14,8 +14,7 @@ private:
 
 public:
     Section(int sectionNum);
-    void pushBackCell(int num);
-    int  findCell(int num);
+    Cell *findCell(int num);
     int  getCountOfCells();
     void pushCellBefore(int numBefore, int num);
     void pushCellAfter(int numAfter, int num);
@@ -23,6 +22,7 @@ public:
     void popCell(int num);
     void popCellBefore(int num);
     void popCellAfter(int num);
+    void changeBusy(int num);
 
     bool operator==(Section & section) const;
     int getNum();

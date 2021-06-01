@@ -6,11 +6,7 @@
 
 Section::Section(int sectionNum) : _sectionNum(sectionNum) {};
 
-void Section::pushBackCell(int num) {
-    cells.pushBack(Cell(num, false));
-}
-
-int Section::findCell(int num) {
+Cell *Section::findCell(int num) {
     Cell cell(num, false);
     return (cells.findElement(cell));
 }
@@ -49,6 +45,13 @@ void Section::popCellAfter(int num) {
 void Section::popCellBefore(int num) {
     Cell cell(num, false);
     cells.popBefore(cell);
+}
+
+void Section::changeBusy(int num) {
+    Cell cell(num, false);
+    Cell *c = cells.findElement(cell);
+    if (!c) std::cout << RED << "No such cell" << DEFAULT << std::endl;
+    else c->changeBusyness();
 }
 
 bool Section::operator==(Section &section) const {

@@ -14,7 +14,7 @@ int Cell::getNumber() const { return _number; }
 
 bool Cell::isBusy() const { return _isBusy; }
 
-bool Cell::operator==(const Cell &cell) { return _number == cell.getNumber() && _isBusy == cell.isBusy(); }
+bool Cell::operator==(const Cell &cell) { return _number == cell.getNumber(); }
 
 std::ostream& operator<< (std::ostream &out, const Cell &cell){
     out << "Cell № " << cell.getNumber() << " (";

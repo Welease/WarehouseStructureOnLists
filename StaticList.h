@@ -27,7 +27,13 @@ public:
 
     int size() { return _countOfElements; }
 
-    int findElement(T toFind) {
+    T *findElement(T toFind) {
+       int ind = findElementsIndex(toFind);
+       if (ind == -1) return nullptr;
+       return &list[ind];
+    }
+
+    int findElementsIndex(T toFind) {
         int i = 0;
         while (i < _countOfElements) {
             if (list[i] == toFind)
@@ -57,7 +63,7 @@ public:
             pushBack(data);
             return;
         }
-        int i = findElement(beforeWhich);
+        int i = findElementsIndex(beforeWhich);
         if (i == -1) {
             std::cout << RED << "Element not found :(" << DEFAULT << std::endl;
             return;
@@ -74,7 +80,7 @@ public:
             std::cout << RED << "List is full" << DEFAULT << std::endl;
             return;
         }
-        int i = findElement(afterWhich);
+        int i = findElementsIndex(afterWhich);
         if (i++ == -1 && _countOfElements > 0) {
             std::cout << RED << "Element not found :(" << DEFAULT << std::endl;
             return;
@@ -97,7 +103,7 @@ public:
             std::cout << RED << "List is empty" << DEFAULT << std::endl;
             return;
         }
-        int i = findElement(elem);
+        int i = findElementsIndex(elem);
         if (i == -1) {
             std::cout << RED << "Element not found :(" << DEFAULT << std::endl;
             return;
@@ -112,7 +118,7 @@ public:
             std::cout << RED << "List is empty" << DEFAULT << std::endl;
             return;
         }
-        int i = findElement(beforeWhich);
+        int i = findElementsIndex(beforeWhich);
         if (i == -1) {
             std::cout << RED << "Element not found :(" << DEFAULT << std::endl;
             return;
@@ -131,7 +137,7 @@ public:
             std::cout << RED << "List is empty" << DEFAULT << std::endl;
             return;
         }
-        int i = findElement(afterWhich);
+        int i = findElementsIndex(afterWhich);
         if (i == -1 || i + 1 >= _countOfElements) {
             std::cout << RED << "Can't delete such element :(" << DEFAULT << std::endl;
             return;

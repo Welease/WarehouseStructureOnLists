@@ -74,3 +74,13 @@ int Warehouse::getCountOfCellsInSection(int numOfSec) {
     Section section(numOfSec);
     return (_sections.find(section)->getCountOfCells());
 }
+
+Cell *Warehouse::findCellInSection(int numOfSec, int num) {
+    Section *sec = findSection(numOfSec);
+    return sec->findCell(num);
+}
+
+void Warehouse::changeBusy(int numOfSec, int num) {
+    Section section(numOfSec);
+    _sections.find(section)->changeBusy(num);
+}

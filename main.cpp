@@ -14,7 +14,7 @@ int checkInput() {
 int main() {
     std::string input;
     int secNum, cellNum, tmp = 0;
-    Section * sec;
+    Section * sec; Cell *cell;
     std::cout << BLUE << "Input name of Warehouse: " << DEFAULT; std::cin >> input;
     Warehouse warehouse(input);
     while (1) {
@@ -35,6 +35,9 @@ int main() {
                              "12 - Delete cell before input cell from specific section\n" <<
                              "13 - Delete cell after input cell from specific section\n" <<
                              "14 - Print cells from specific section\n" <<
+                             "15 - Get count of cells in specific section\n" <<
+                             "16 - Find input cell in specific section\n" <<
+                             "17 - Change cell occupancy\n" <<
                              "0 - exist\n====>" << DEFAULT << std::endl;
         std::cin >> input;
         if (input == "1") {
@@ -72,7 +75,8 @@ int main() {
             if ((sec = warehouse.findSection(checkInput()))) sec->printCells();
             else std::cout << RED << "No such section in warehouse" << DEFAULT << std::endl;
         }
-        else if (input == "9" || input == "10" || input == "11" || input == "12" || input == "13" || input == "14") {
+        else if (input == "9" || input == "10" || input == "11" || input == "12" ||
+                input == "13" || input == "14" || input == "15" || input == "16" || input == "17") {
             if (warehouse.getCountOfSections()) {
                 std::cout << "Input number of section: ";
                 secNum = checkInput();
@@ -101,6 +105,19 @@ int main() {
                         std::cout << "Input number of cell after which: ";
                         warehouse.popFromSectionAfter(secNum, checkInput());
                     } else if (input == "14") warehouse.printSectionsData(secNum);
+                    else if (input == "15")
+                        std::cout << "In section " << secNum << ": " << warehouse.getCountOfCellsInSection(secNum) << " cells" << std::endl;
+                    else if (input == "16") {
+                        std::cout << "Input number of cell: ";
+                        cellNum = checkInput();
+                        if (!(cell = warehouse.findCellInSection(secNum, cellNum)))
+                            std::cout << RED << "No such cell in this section" << DEFAULT << std::endl;
+                        else std::cout << *cell << std::endl;
+                    }
+                    else if (input == "17") {
+                        std::cout << "Input number of cell: ";
+                        warehouse.changeBusy(secNum, checkInput());
+                    }
                 } else std::cout << RED << "No such section in warehouse" << DEFAULT << std::endl;
             } else std::cout << RED << "Warehouse is empty" << DEFAULT << std::endl;
         }
