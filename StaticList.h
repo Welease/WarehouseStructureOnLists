@@ -93,9 +93,11 @@ public:
     }
 
     void	printListsData() {
-        for (int i = 0; i < _countOfElements; i++)
-            std::cout << list[i] << std::endl;
-        std::cout << std::endl;
+        for (int i = 0; i < _countOfElements; i++) {
+            if (i > 0)
+                std::cout << "            ";
+            std::cout << "           " << list[i] << std::endl;
+        }
     }
 
     void popElement(T elem) {

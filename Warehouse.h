@@ -7,6 +7,8 @@
 
 #include "List.h"
 #include "Section.h"
+#include <fstream>
+
 
 class Warehouse {
 private:
@@ -15,6 +17,8 @@ private:
 
 public:
     explicit Warehouse(std::string & name);
+
+    //work with sections
     void addSectionAfter(int numAfter, int num);
     void addSectionBefore(int numBefore, int num);
     void popSectionBefore(int num);
@@ -24,6 +28,7 @@ public:
     void printWarehousesData();
     int  getCountOfSections();
 
+    //work with specific section in warehouse
     void addCellToSectionAfter(int numOfSec, int numAfter, int num);
     void addCellToSectionBefore(int numOfSec, int numBefore, int num);
     void popFromSectionBefore(int numOfSec, int num);
@@ -33,6 +38,16 @@ public:
     int  getCountOfCellsInSection(int numOfSec);
     Cell *findCellInSection(int numOfSec, int num);
     void changeBusy(int numOfSec, int num);
+
+    //work with files
+    void parseFilesData(std::ifstream & in);
+
+private:
+    bool checkPromLine(std::string & str);
+    int  parseSectionNum(std::string & str, int prevSec);
+    void parseCellNum(std::string & str, int secNum);
+    void addSectionBack(int num);
+
 };
 
 

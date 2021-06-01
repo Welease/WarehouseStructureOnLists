@@ -15,6 +15,10 @@ int Section::getCountOfCells() {
     return cells.size();
 }
 
+void Section::pushBackCell(int num) {
+    cells.pushBack(Cell(num, false));
+}
+
 void Section::pushCellBefore(int numBefore, int num) {
     Cell cellBef(numBefore, false);
     Cell cell(num, false);
@@ -28,7 +32,9 @@ void Section::pushCellAfter(int numAfter, int num) {
 }
 
 void Section::printCells() {
-    std::cout << "Section № " << _sectionNum << std::endl;
+    std::cout << " Section № " << _sectionNum;
+    if (cells.isEmpty())
+        std::cout << std::endl;
     cells.printListsData();
 }
 
