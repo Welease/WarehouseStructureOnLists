@@ -15,10 +15,21 @@ int main(int argc, char** argv) {
             return 0;
         }
         std::string input;
-        std::cout << BLUE << "Input name of Warehouse: " << DEFAULT;
-        std::cin >> input;
-        Warehouse warehouse(input);
-        warehouse.parseFilesData(fileIn);
-        menuForWarehouse(warehouse, fileOut);
+        while (1) {
+            std::cout << BLUE << "Read data from file? (y - yes) (n - no): " << DEFAULT;
+            std::cin >> input;
+            if (input == "n") {
+                std::cout << BLUE << "Input name of Warehouse: " << DEFAULT;
+                std::cin >> input;
+                Warehouse warehouse(input);
+                menuForWarehouse(warehouse, fileOut);
+                break;
+            } else if (input == "y") {
+                Warehouse warehouse(input);
+                warehouse.parseFilesData(fileIn);
+                menuForWarehouse(warehouse, fileOut);
+                break;
+            } else continue;
+        }
     } else std::cout << RED << "usage: ./kursach <input_file_with_info> <output_file>" << DEFAULT << std::endl;
 }

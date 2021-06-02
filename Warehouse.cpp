@@ -104,7 +104,12 @@ int  Warehouse::parseSectionNum(std::string &str, int prevSec) {
     std::string tmp;
     if (ind != str.npos) {
         tmp = str.substr(ind + 12, str.length());
-        num = std::stoi(tmp);
+        try {
+            num = std::stoi(tmp);
+        } catch (std::exception & ex) {
+            std::cout << RED << "Incorrect data in input file" << DEFAULT << std::endl;
+            exit(0);
+        }
         addSectionBack(num);
     }
     return num;
@@ -120,7 +125,12 @@ void Warehouse::parseCellNum(std::string &str, int secNum) {
     std::string tmp;
     if (ind != str.npos) {
         tmp = str.substr(ind + 9, str.length());
-        num = std::stoi(tmp);
+        try {
+            num = std::stoi(tmp);
+        } catch (std::exception & ex) {
+            std::cout << RED << "Incorrect data in input file" << DEFAULT << std::endl;
+            exit(0);
+        }
         _sections.find(Section(secNum))->pushBackCell(num);
         if ((ind = str.find('(')) != str.npos) {
             tmp = str.substr(ind , ind + 5);

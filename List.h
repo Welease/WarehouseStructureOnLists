@@ -70,15 +70,6 @@ public:
             _size++;
         };
 
-        void pop_front(){
-            t_node *oldBegin = this->begin().getNode();
-            t_node *newBegin = oldBegin->next;
-            _abstractNode->next = newBegin;
-            newBegin->prev = _abstractNode;
-            deleteNode(oldBegin);
-            _size--;
-        };
-
         void push_back (const value_type& val){
             t_node *tmp = _abstractNode->prev;
             t_node *newNode = addNode();
@@ -106,16 +97,6 @@ public:
             fillContent(newNode, val, nextNode, prevNode);
             _size++;
             return iterator(newNode);
-        };
-
-        template<class iterator>
-        void insert(iterator position, iterator first, iterator last,
-                    typename enable_if<std::__is_input_iterator<iterator>::value>::type* = 0){
-            iterator tmp = position;
-            while (first != last) {
-                tmp = insert(tmp, *first++);
-                tmp++;
-            }
         };
 
         iterator erase(iterator position){
