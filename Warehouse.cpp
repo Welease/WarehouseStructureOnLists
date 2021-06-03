@@ -23,10 +23,6 @@ void Warehouse::addSectionBefore(int numBefore, int num) {
 
 void Warehouse::popSection(int num) { _sections.erase(_sections.find(Section(num))); }
 
-void Warehouse::popSectionAfter(int num) { _sections.erase(++_sections.find(Section(num))); }
-
-void Warehouse::popSectionBefore(int num) { _sections.erase(--_sections.find(Section(num))); }
-
 Section *Warehouse::findSection(int num) { return &*_sections.find(Section(num)); }
 
 void Warehouse::printWarehousesData(std::ostream & outFile) {
@@ -55,16 +51,6 @@ void Warehouse::addCellToSectionBefore(int numOfSec, int numBefore, int num) {
 void Warehouse::popFromSection(int numOfSec, int num) {
     Section section(numOfSec);
     _sections.find(section)->popCell(num);
-}
-
-void Warehouse::popFromSectionAfter(int numOfSec, int num) {
-    Section section(numOfSec);
-    _sections.find(section)->popCellAfter(num);
-}
-
-void Warehouse::popFromSectionBefore(int numOfSec, int num) {
-    Section section(numOfSec);
-    _sections.find(section)->popCellBefore(num);
 }
 
 void Warehouse::printSectionsData(int numOfSec, std::ostream & outfile) {

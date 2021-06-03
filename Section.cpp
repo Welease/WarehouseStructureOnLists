@@ -44,16 +44,6 @@ void Section::popCell(int num) {
     cells.popElement(cell);
 }
 
-void Section::popCellAfter(int num) {
-    Cell cell(num, false);
-    cells.popAfter(cell);
-}
-
-void Section::popCellBefore(int num) {
-    Cell cell(num, false);
-    cells.popBefore(cell);
-}
-
 void Section::changeBusy(int num) {
     Cell cell(num, false);
     Cell *c = cells.findElement(cell);

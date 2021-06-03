@@ -21,8 +21,6 @@ public:
     void pushCellAfter(int numAfter, int num);
     void printCells(std::ostream & outFile);
     void popCell(int num);
-    void popCellBefore(int num);
-    void popCellAfter(int num);
     void changeBusy(int num);
 
     bool operator==(Section & section) const;

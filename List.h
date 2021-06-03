@@ -13,10 +13,6 @@ template<typename value_type> struct node {
     value_type *content;
 };
 
-template<bool Cond, class T = void> struct enable_if {};
-
-template<class T> struct enable_if<true, T> { typedef T type; };
-
 template<class T, class Alloc = std::allocator<T> >
 
 class list {
@@ -125,37 +121,6 @@ public:
             return i;
         };
 
-        void swap(list &x){
-            t_node *tmp = x._abstractNode;
-            x._abstractNode = this->_abstractNode;
-            this->_abstractNode = tmp;
-
-            size_type size = x._size;
-            x._size = _size;
-            _size = size;
-        };
-
-        void clear(){
-            clearList();
-        };
-
-        void remove(const value_type &val){
-            for (iterator i = this->begin(); i != this->end();){
-                if (*i == val) i = erase(i);
-                else ++i;
-            }
-        };
-
-        void sort(){
-            sort(_ascedingOrder());
-        };
-
-        template<class Compare>
-        void sort(Compare comp){
-            mergeSort(&(_abstractNode->next));
-            connectionsRecovery();
-        };
-
         iterator find(value_type toFind) {
             for (iterator i = begin(); i != end(); ++i)
                 if (*i == toFind) return i;
@@ -250,111 +215,6 @@ private:
             _abstractNode->next = _abstractNode;
             _abstractNode->prev = _abstractNode;
         }
-
-        struct _ascedingOrder {
-            bool operator()(value_type const &first, value_type const &second) { return first < second; }
-        };
-
-        void mergeSort(t_node **begin) {
-            t_node *head = *begin;
-            t_node *a;
-            t_node *b;
-
-            if (head == _abstractNode || head->next == _abstractNode)
-                return;
-            nodeSplit(head, &a, &b);
-            mergeSort(&a);
-            mergeSort(&b);
-            *begin = sortedMerge(a, b);
-        }
-
-        t_node *sortedMerge(t_node *a, t_node *b){
-            t_node *res = _abstractNode;
-
-            if (a == _abstractNode) return b;
-            else if (b == _abstractNode) return a;
-
-            if (*(a->content) <= *(b->content)){
-                res = a;
-                res->next = sortedMerge(a->next, b);
-            }
-            else {
-                res = b;
-                res->next = sortedMerge(a, b->next);
-            }
-            return res;
-        }
-
-        void nodeSplit(t_node *src, t_node **front, t_node **back){
-            t_node *fast;
-            t_node *slow;
-            slow = src;
-            fast = src->next;
-
-            while (fast != _abstractNode) {
-                fast = fast->next;
-                if (fast != _abstractNode) {
-                    slow = slow->next;
-                    fast = fast->next;
-                }
-            }
-            *front = src;
-            *back = slow->next;
-            slow->next = _abstractNode;
-        }
-
-        void connectionsRecovery(){
-            t_node *tmp = _abstractNode->next;
-            t_node *prevNode = _abstractNode;
-
-            while (tmp != _abstractNode){
-                tmp->prev = prevNode;
-                prevNode = tmp;
-                tmp = tmp->next;
-            }
-            _abstractNode->prev = prevNode;
-        };
-    };
-
-    template <class T, class Alloc>
-    bool operator==(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) {
-        typename list<T, Alloc>::iterator it = rhs.begin();
-        typename list<T, Alloc>::iterator i = lhs.begin();
-        if (lhs.size() == rhs.size() && lhs.size() == 0)
-            return true;
-        if (lhs.size() == rhs.size()) {
-            for (; i != lhs.end() && it != rhs.end(); ++i)
-                if (*i != *it++)
-                    return false;
-            return true;
-        }
-        return false;
-    }
-
-    template <class T, class Alloc>
-    bool operator!=(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) { return !(lhs == rhs); }
-
-    template <class T, class Alloc>
-    bool operator<  (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) {
-        typename list<T, Alloc>::iterator it = rhs.begin();
-        typename list<T, Alloc>::iterator i = lhs.begin();
-        typename list<T, Alloc>::iterator ite = rhs.end();
-        typename list<T, Alloc>::iterator ie = lhs.end();
-
-        if (lhs.size() == rhs.size() && lhs.size() == 0) return false;
-        while (it != ite && i != ie)
-            if (*i++ < *it++) return true;
-        if (rhs.size() != lhs.size()) return lhs.size() < rhs.size();
-        return false;
-    }
-
-    template <class T, class Alloc>
-    bool operator<=(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) { return (!(rhs < lhs)); }
-    template <class T, class Alloc>
-    bool operator>(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) { return (rhs < lhs); }
-    template <class T, class Alloc>
-    bool operator>=(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) { return (!(lhs < rhs)); }
-
-    template <class T, class Alloc> void swap(list<T,Alloc>& x, list<T,Alloc>& y) { x.swap(y);};
+};
 
 #endif //WAREHOUSESTRUCTUREONLISTS_LIST_H

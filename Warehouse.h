@@ -21,8 +21,6 @@ public:
     //work with sections
     void addSectionAfter(int numAfter, int num);
     void addSectionBefore(int numBefore, int num);
-    void popSectionBefore(int num);
-    void popSectionAfter(int num);
     void popSection(int num);
     Section *findSection(int num);
     void printWarehousesData(std::ostream & outFile);
@@ -31,8 +29,6 @@ public:
     //work with specific section in warehouse
     void addCellToSectionAfter(int numOfSec, int numAfter, int num);
     void addCellToSectionBefore(int numOfSec, int numBefore, int num);
-    void popFromSectionBefore(int numOfSec, int num);
-    void popFromSectionAfter(int numOfSec, int num);
     void popFromSection(int numOfSec, int num);
     void printSectionsData(int numOfSec, std::ostream & outfile);
     int  getCountOfCellsInSection(int numOfSec);
