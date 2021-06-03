@@ -31,5 +31,5 @@ int main(int argc, char** argv) {
                 break;
             } else continue;
         }
-    } else std::cout << RED << "usage: ./kursach <input_file_with_info> <output_file>" << DEFAULT << std::endl;
+    } else std::cout << RED << "usage: ./warehouse <input_file_with_info> <output_file>" << DEFAULT << std::endl;
 }

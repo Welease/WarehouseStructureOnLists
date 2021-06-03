@@ -27,28 +27,13 @@ public:
         createAbstractNode();
     };
 
-    list(const list &x) : _size(0){
-        createAbstractNode();
-        *this = x;
-    };
-
     ~list(){
-        clearList();
+        erase(begin(), end());
+        _abstractNode->next = _abstractNode;
+        _abstractNode->prev = _abstractNode;
         _ptr_alloc.deallocate(_abstractNode, 1);
     };
 
-    list &operator=(const list &x){
-        if (this != &x){
-            clearList();
-            _size = 0;
-            iterator i = x.begin();
-            while (_size != x.size()) {
-                push_back(*i);
-                i++;
-            }
-        }
-        return *this;
-    }
 
         iterator 		begin() { return iterator(this->_abstractNode->next); };
         iterator 		end() { return iterator(this->_abstractNode); };
@@ -201,12 +186,6 @@ private:
             _alloc.destroy(node->content);
             _alloc.deallocate(node->content, 1);
             _ptr_alloc.deallocate(node, 1);
-        }
-
-        void clearList() {
-            erase(begin(), end());
-            _abstractNode->next = _abstractNode;
-            _abstractNode->prev = _abstractNode;
         }
 
         void createAbstractNode() {

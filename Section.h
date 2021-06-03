@@ -14,6 +14,8 @@ private:
 
 public:
     Section(int sectionNum);
+    ~Section() = default;
+
     Cell *findCell(int num);
     void pushBackCell(int num);
     int  getCountOfCells();

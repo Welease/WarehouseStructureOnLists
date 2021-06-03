@@ -13,6 +13,7 @@ private:
 public:
     Cell();
     Cell(int number, bool isBusy);
+    ~Cell() = default;
 
     void changeBusyness();
     int getNumber() const;

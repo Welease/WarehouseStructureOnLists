@@ -4,11 +4,17 @@
 #include "menuUtils.h"
 
 int checkInput() {
-    int a;
-    while (!(std::cin >> a) || (std::cin.peek() != '\n')) {
-        std::cin.clear();
-        while (std::cin.get() != '\n');
-        std::cout << RED << "Incorrect input, please try again: " << DEFAULT;
+    int a = -1;
+    bool flag = false;
+    while (a < 0) {
+        if (flag)
+            std::cout << RED << "Incorrect input, please try again: " << DEFAULT;
+        while (!(std::cin >> a) || (std::cin.peek() != '\n')) {
+            std::cin.clear();
+            while (std::cin.get() != '\n');
+            std::cout << RED << "Incorrect input, please try again: " << DEFAULT;
+        }
+        flag = true;
     }
     return a;
 }
@@ -37,7 +43,7 @@ void menuForSpecificSection(Warehouse & warehouse, std::string & input, std::ost
             } else if (input == "10") {
                 std::cout << "Input number of cell: ";
                 warehouse.popFromSection(secNum, checkInput());
-            } else if (input == "11") warehouse.printSectionsData(secNum, of);
+            } else if (input == "11") warehouse.printSectionsData(secNum, std::cout);
             else if (input == "12")
                 std::cout << "In section " << secNum << ": " << warehouse.getCountOfCellsInSection(secNum) << " cells" << std::endl;
             else if (input == "13") {

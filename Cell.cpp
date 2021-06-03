@@ -6,7 +6,7 @@
 
 Cell::Cell(int number, bool isBusy) : _number(number), _isBusy(isBusy) {};
 
-Cell::Cell() {}
+Cell::Cell() : _number(0), _isBusy(false){}
 
 void Cell::changeBusyness() { _isBusy = !_isBusy; }
 

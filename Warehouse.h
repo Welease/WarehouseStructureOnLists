@@ -17,6 +17,7 @@ private:
 
 public:
     explicit Warehouse(std::string & name);
+    ~Warehouse() = default;
 
     //work with sections
     void addSectionAfter(int numAfter, int num);
@@ -43,7 +44,6 @@ private:
     int  parseSectionNum(std::string & str, int prevSec);
     void parseCellNum(std::string & str, int secNum);
     void addSectionBack(int num);
-
 };
 
 

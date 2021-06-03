@@ -23,6 +23,8 @@ public:
         _countOfElements = 0;
     }
 
+    ~StaticList() = default;
+
     bool isEmpty() { return _countOfElements == 0; }
 
     bool isFull() { return _countOfElements == SIZE; }
