@@ -21,6 +21,11 @@ void Warehouse::addSectionBefore(int numBefore, int num) {
     else _sections.insert(i, Section(num));
 }
 
+void errorInFile() {
+    std::cout << RED << "Incorrect data in input file" << DEFAULT << std::endl;
+    exit(0);
+}
+
 void Warehouse::popSection(int num) { _sections.erase(_sections.find(Section(num))); }
 
 Section *Warehouse::findSection(int num) { return &*_sections.find(Section(num)); }
@@ -92,9 +97,10 @@ int  Warehouse::parseSectionNum(std::string &str, int prevSec) {
         tmp = str.substr(ind + 12, str.length());
         try {
             num = std::stoi(tmp);
+            if (num < 0)
+                errorInFile();
         } catch (std::exception & ex) {
-            std::cout << RED << "Incorrect data in input file" << DEFAULT << std::endl;
-            exit(0);
+            errorInFile();
         }
         addSectionBack(num);
     }
@@ -113,9 +119,10 @@ void Warehouse::parseCellNum(std::string &str, int secNum) {
         tmp = str.substr(ind + 9, str.length());
         try {
             num = std::stoi(tmp);
+            if (num < 0)
+                errorInFile();
         } catch (std::exception & ex) {
-            std::cout << RED << "Incorrect data in input file" << DEFAULT << std::endl;
-            exit(0);
+            errorInFile();
         }
         _sections.find(Section(secNum))->pushBackCell(num);
         if ((ind = str.find('(')) != str.npos) {
@@ -130,13 +137,10 @@ void Warehouse::parseFilesData(std::ifstream &in) {
     std::string line;
     int curSection;
     while (getline(in, line)) {
-        if (line.find(':') != line.npos) {
+        if (line.find(':') != line.npos)
             _name = line.substr(line.find(':') + 2, line.length());
-            std::cout << _name << std::endl;
-        }
         if (checkPromLine(line)) continue;
         curSection = parseSectionNum(line, curSection);
         parseCellNum(line, curSection);
     }
-    curSection = 0;
 }
