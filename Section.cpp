@@ -56,3 +56,10 @@ bool Section::operator==(Section &section) const {
 }
 
 int Section::getNum() { return _sectionNum; }
+
+void Section::printCellsReverse(std::ostream &outFile) {
+    outFile << " Section № " << _sectionNum;
+    if (cells.isEmpty())
+        outFile << std::endl;
+    cells.printReverseListsData(outFile);
+}

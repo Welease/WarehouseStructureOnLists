@@ -26,12 +26,14 @@ public:
     Section *findSection(int num);
     void printWarehousesData(std::ostream & outFile);
     int  getCountOfSections();
+    void printWarehousesDataReverse(std::ostream & outFile);
 
     //work with specific section in warehouse
     void addCellToSectionAfter(int numOfSec, int numAfter, int num);
     void addCellToSectionBefore(int numOfSec, int numBefore, int num);
     void popFromSection(int numOfSec, int num);
     void printSectionsData(int numOfSec, std::ostream & outfile);
+    void printSectionsDataReverse(int numOfSec, std::ostream & outfile);
     int  getCountOfCellsInSection(int numOfSec);
     Cell *findCellInSection(int numOfSec, int num);
     void changeBusy(int numOfSec, int num);

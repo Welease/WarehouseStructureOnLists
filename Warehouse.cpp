@@ -40,6 +40,18 @@ void Warehouse::printWarehousesData(std::ostream & outFile) {
     }
 }
 
+void Warehouse::printWarehousesDataReverse(std::ostream &outFile) {
+    outFile << "-----------------------------------------------" << std::endl;
+    outFile << "           WAREHOUSE: " << _name << "         " << std::endl;
+    outFile << "-----------------------------------------------" << std::endl;
+    for (auto i = --_sections.end(); i != _sections.begin(); --i) {
+        i->printCells(outFile);
+        outFile << "-----------------------------------------------" << std::endl;
+    }
+    _sections.begin()->printCells(outFile);
+    outFile << "-----------------------------------------------" << std::endl;
+}
+
 int Warehouse::getCountOfSections() { return static_cast<int>(_sections.size()); }
 
 void Warehouse::addCellToSectionAfter(int numOfSec, int numAfter, int num) {
@@ -61,6 +73,11 @@ void Warehouse::popFromSection(int numOfSec, int num) {
 void Warehouse::printSectionsData(int numOfSec, std::ostream & outfile) {
     Section section(numOfSec);
     _sections.find(section)->printCells(outfile);
+}
+
+void Warehouse::printSectionsDataReverse(int numOfSec, std::ostream &outfile) {
+    Section section(numOfSec);
+    _sections.find(section)->printCellsReverse(outfile);
 }
 
 int Warehouse::getCountOfCellsInSection(int numOfSec) {

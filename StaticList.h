@@ -104,6 +104,14 @@ public:
         }
     }
 
+    void printReverseListsData(std::ostream & outFile) {
+        for (int i = _countOfElements - 1; i >= 0; --i) {
+            if (i < _countOfElements - 1)
+                outFile << "            ";
+            outFile << "           " << list[i] << std::endl;
+        }
+    }
+
     void popElement(T elem) {
         if (isEmpty()) {
             std::cout << RED << "List is empty" << DEFAULT << std::endl;

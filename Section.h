@@ -22,6 +22,7 @@ public:
     void pushCellBefore(int numBefore, int num);
     void pushCellAfter(int numAfter, int num);
     void printCells(std::ostream & outFile);
+    void printCellsReverse(std::ostream & outFile);
     void popCell(int num);
     void changeBusy(int num);
 

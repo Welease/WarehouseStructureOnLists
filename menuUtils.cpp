@@ -57,6 +57,9 @@ void menuForSpecificSection(Warehouse & warehouse, std::string & input, std::ost
                 std::cout << "Input number of cell: ";
                 warehouse.changeBusy(secNum, checkInput());
             }
+            else if (input == "15") {
+                warehouse.printSectionsDataReverse(secNum, std::cout);
+            }
         } else std::cout << RED << "No such section in warehouse" << DEFAULT << std::endl;
     } else std::cout << RED << "Warehouse is empty" << DEFAULT << std::endl;
 }
@@ -67,9 +70,10 @@ void printWelcomeMessage() {
               "2 - Add section after input section\n" <<
               "3 - Delete input section\n" <<
               "4 - Get count of sections in warehouse\n" <<
-              "5 - Print warehouses data\n" <<
+              "5 - Print warehouse's data\n" <<
               "6 - Find input section\n" <<
               "7 - Save in file\n" <<
+              "r - Print warehouse's data in reverse order\n"
 
               "Work with specific section:\n"
               "8 - Add cell after input to specific section\n" <<
@@ -79,6 +83,7 @@ void printWelcomeMessage() {
               "12 - Get count of cells in specific section\n" <<
               "13 - Find input cell in specific section\n" <<
               "14 - Change cell occupancy\n" <<
+              "15 - Print cells from specific section in reverse order\n" <<
               "0 - exist\n====>" << DEFAULT << std::endl;
 }
 
@@ -118,8 +123,9 @@ void menuForWarehouse(Warehouse & warehouse, std::ostream & outFile) {
             else std::cout << RED << "No such section in warehouse" << DEFAULT << std::endl;
         }
         else if (input == "7") warehouse.printWarehousesData(outFile);
+        else if (input == "r") warehouse.printWarehousesDataReverse(std::cout);
         else if (input == "8" || input == "9" || input == "10" || input == "11" ||
-                 input == "12" || input == "13" || input == "14") {
+                 input == "12" || input == "13" || input == "14" || input == "15") {
             menuForSpecificSection(warehouse, input, outFile);
         }
         else if (input == "0") {
