@@ -7,7 +7,8 @@ Warehouse::Warehouse(std::string & name) : _name(name) {};
 
 void Warehouse::addSectionAfter(int numAfter, int num) {
     auto i = _sections.find(Section(numAfter));
-    _sections.insert(++i, Section(num));
+    if (!i.getNode()) std::cout << RED << "No such element in warehouse" << DEFAULT << std::endl;
+    else _sections.insert(++i, Section(num));
 }
 
 void Warehouse::addSectionBefore(int numBefore, int num) {
@@ -28,7 +29,13 @@ void errorInFile() {
 
 void Warehouse::popSection(int num) { _sections.erase(_sections.find(Section(num))); }
 
-Section *Warehouse::findSection(int num) { return &*_sections.find(Section(num)); }
+Section *Warehouse::findSection(int num) {
+    if (_sections.size() == 0)
+        return nullptr;
+    auto ret = _sections.find(Section(num));
+    if (!ret.getNode()) return nullptr;
+    return &*ret;
+}
 
 void Warehouse::printWarehousesData(std::ostream & outFile) {
     outFile << "-----------------------------------------------" << std::endl;

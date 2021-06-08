@@ -41,27 +41,33 @@ public:
 
         void push_front(const value_type &val){
             t_node *newNode = addNode();
-            newNode->next = _head;
-            fillContent(newNode, val, nullptr);
-            _head = newNode;
+            fillContent(newNode, val, _head->next);
+            _head->next = newNode;
             _size++;
         };
 
         void push_back (const value_type& val){
             t_node *newNode = addNode();
-            _tail->next = newNode;
+            t_node *i = _head;
+            while (i->next != nullptr)
+                i = i->next;
+            i->next = newNode;
             fillContent(newNode, val, nullptr);
-            _tail = newNode;
             this->_size++;
         };
 
-        iterator insert(iterator position, const value_type &val){
-            iterator t = this->begin();
+        void insert(iterator position, const value_type &val){
+            iterator t;
+            if (position == end()) {
+                push_back(val);
+                return ;
+            }
             if (position != end()) {
-                while (t != position && t != this->end()) t++;
+                t = this->begin();
+                while (t.getNode()->next != position.getNode() && t != this->end()) t++;
                 if (t == this->end() && _size != 0){
                     *position = val;
-                    return position;
+                    return;
                 }
             }
             t_node *newNode = addNode();
@@ -69,19 +75,24 @@ public:
             fillContent(newNode, val, nextNode);
             t.getNode()->next = newNode;
             _size++;
-            return iterator(newNode);
         };
 
         iterator erase(iterator position){
-            iterator tmp = this->begin();
-            while (tmp != position && tmp != this->end())
+            if (_size == 0) {
+                std::cout << "List is empty" << std::endl;
+                return end();
+            }
+            iterator tmp = iterator(_head);
+            t_node *prev = nullptr, *next = _head->next;
+            while (tmp != position) {
+                prev = tmp.getNode();
                 tmp++;
-            if (tmp == this->end())
-                return position;
-            iterator t = tmp; ++tmp;
-            deleteNode(t.getNode());
+                next = tmp.getNext();
+            }
+            prev->next = next;
+            deleteNode(tmp.getNode());
             _size--;
-            return tmp;
+            return iterator(next);
         };
 
         iterator erase(iterator first, iterator last){
@@ -142,7 +153,7 @@ public:
 private:
         typedef node<value_type> t_node;
         t_node *_head;
-        t_node *_tail;
+//        t_node *_tail;
         size_type _size;
 
         typedef typename allocator_type::template rebind<node<value_type> >::other PtrAllocator;
@@ -171,7 +182,6 @@ private:
             _head = _ptr_alloc.allocate(1);
             _head->content = nullptr;
             _head->next = nullptr;
-            _tail = _head;
         }
 };
 
