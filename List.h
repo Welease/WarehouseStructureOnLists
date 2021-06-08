@@ -8,7 +8,6 @@
 #include <memory>
 
 template<typename value_type> struct node {
-    struct node *prev;
     struct node *next;
     value_type *content;
 };
@@ -29,53 +28,46 @@ public:
 
     ~list(){
         erase(begin(), end());
-        _abstractNode->next = _abstractNode;
-        _abstractNode->prev = _abstractNode;
-        _ptr_alloc.deallocate(_abstractNode, 1);
+        _ptr_alloc.deallocate(_head, 1);
     };
 
 
-        iterator 		begin() { return iterator(this->_abstractNode->next); };
-        iterator 		end() { return iterator(this->_abstractNode); };
+        iterator 		begin() { return iterator(this->_head->next); };
+        iterator 		end() { return iterator(nullptr); };
 
         bool empty() const {return _size == 0;};
 
         size_type size() const { return _size;};
 
         void push_front(const value_type &val){
-            t_node *tmp = _abstractNode->next;
             t_node *newNode = addNode();
-            _abstractNode->next = newNode;
-            tmp->prev = newNode;
-            fillContent(newNode, val, tmp, _abstractNode);
+            newNode->next = _head;
+            fillContent(newNode, val, nullptr);
+            _head = newNode;
             _size++;
         };
 
         void push_back (const value_type& val){
-            t_node *tmp = _abstractNode->prev;
             t_node *newNode = addNode();
-            _abstractNode->prev = newNode;
-            tmp->next = newNode;
-            fillContent(newNode, val, _abstractNode, tmp);
+            _tail->next = newNode;
+            fillContent(newNode, val, nullptr);
+            _tail = newNode;
             this->_size++;
         };
 
         iterator insert(iterator position, const value_type &val){
-            iterator tmp = position;
+            iterator t = this->begin();
             if (position != end()) {
-                iterator tmp = this->begin();
-                while (tmp != position && tmp != this->end()) tmp++;
-                if (tmp == this->end() && _size != 0){
+                while (t != position && t != this->end()) t++;
+                if (t == this->end() && _size != 0){
                     *position = val;
                     return position;
                 }
             }
             t_node *newNode = addNode();
-            t_node *nextNode = tmp.getNode();
-            t_node *prevNode = nextNode->prev;
-            nextNode->prev = newNode;
-            prevNode->next = newNode;
-            fillContent(newNode, val, nextNode, prevNode);
+            t_node *nextNode = t.getNext();
+            fillContent(newNode, val, nextNode);
+            t.getNode()->next = newNode;
             _size++;
             return iterator(newNode);
         };
@@ -86,13 +78,10 @@ public:
                 tmp++;
             if (tmp == this->end())
                 return position;
-            t_node *prevNode = tmp.getNode()->prev;
-            t_node *nextNode = prevNode->next->next;
-            prevNode->next = nextNode;
-            nextNode->prev = prevNode;
-            deleteNode(tmp.getNode());
+            iterator t = tmp; ++tmp;
+            deleteNode(t.getNode());
             _size--;
-            return iterator(nextNode);
+            return tmp;
         };
 
         iterator erase(iterator first, iterator last){
@@ -144,25 +133,16 @@ public:
                 return tmp;
             }
 
-            virtual iterator &operator--(){ //pref
-                _node = _node->prev;
-                return *this;
-            }
-
-            virtual iterator operator--(int){ //post
-                iterator tmp(*this);
-                _node = _node->prev;
-                return tmp;
-            }
-
             value_type &operator*(){return *this->_node->content;}
             value_type *operator->(){return this->_node->content;}
             node<value_type> *getNode() const {return this->_node;}
+            node<value_type> *getNext() const {return this->_node->next;}
         };
 
 private:
         typedef node<value_type> t_node;
-        t_node *_abstractNode;
+        t_node *_head;
+        t_node *_tail;
         size_type _size;
 
         typedef typename allocator_type::template rebind<node<value_type> >::other PtrAllocator;
@@ -176,9 +156,8 @@ private:
             return node;
         }
 
-        void fillContent(t_node *node, value_type const & value, t_node *next, t_node *prev) {
+        void fillContent(t_node *node, value_type const & value, t_node *next) {
             node->next = next;
-            node->prev = prev;
             _alloc.construct(node->content, value);
         }
 
@@ -189,10 +168,10 @@ private:
         }
 
         void createAbstractNode() {
-            _abstractNode = _ptr_alloc.allocate(1);
-            _abstractNode->content = nullptr;
-            _abstractNode->next = _abstractNode;
-            _abstractNode->prev = _abstractNode;
+            _head = _ptr_alloc.allocate(1);
+            _head->content = nullptr;
+            _head->next = nullptr;
+            _tail = _head;
         }
 };
 
